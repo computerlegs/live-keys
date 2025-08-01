@@ -1,0 +1,13 @@
+{
+  "streamingMode": false,
+  "keys": {
+    "REPLACE_WITH_YOUR_KEY_NAME_1": {
+      "real": "REPLACE_WITH_YOUR_REAL_API_KEY_1",
+      "placeholder": "REPLACE_WITH_YOUR_PLACEHOLDER_VALUE_1"
+    },
+    "REPLACE_WITH_YOUR_KEY_NAME_2": {
+      "real": "REPLACE_WITH_YOUR_REAL_API_KEY_2",
+      "placeholder": "REPLACE_WITH_YOUR_PLACEHOLDER_VALUE_2"
+    }
+  }
+} 
