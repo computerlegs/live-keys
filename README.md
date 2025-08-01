@@ -2,7 +2,9 @@
 
 *Designed to make building in public easier*
 
-⚠️✅ SAFETY WARNING: Install `live-keys` in a NEW FOLDER, as a NEW PROJECT. It is a seperate code-base to your project. Once you establish your `keys.json` file treat it like any other key. Safely, securely, and offline unless you know what you're doing. 
+⚠️✅ Install `live-keys` in a NEW FOLDER, as a NEW PROJECT. It is a seperate code-base to your project. 
+
+Once you establish your `keys.json` file treat it like any other key. Safely, securely, and offline unless you know what you're doing. 
 
 ❌ Did you read the note above? DO NOT INSTALL `live-keys` in your main codebase. Start a new project with a new folder! This seperation is how your keys are obfuscated: a simple HTTP call, offline.
 
