@@ -1,15 +1,21 @@
 {
-  "name": "securestream-key-server",
+  "name": "live-keys",
   "version": "1.0.0",
-  "description": "A localhost-hosted development tool to safely manage API keys during live streams.",
+  "description": "A minimalist, localhost-only key server for building in public.",
   "main": "dist/server.js",
+  "bin": {
+    "check-keys": "./scripts/check-keys.js",
+    "status": "./scripts/status.js"
+  },
   "scripts": {
     "dev": "nodemon src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "lint": "eslint . --ext .ts",
     "setup": "node scripts/setup.js",
-    "postinstall": "node scripts/setup.js"
+    "postinstall": "node scripts/setup.js",
+    "check-keys": "node scripts/check-keys.js",
+    "status": "node scripts/status.js"
   },
   "author": "Your Name",
   "license": "MIT",

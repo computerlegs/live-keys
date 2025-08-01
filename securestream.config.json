@@ -1,0 +1,9 @@
+{
+  "strictMode": false,
+  "features": {
+    "gitHook": {
+      "enabled": true,
+      "mode": "warn" 
+    }
+  }
+} 

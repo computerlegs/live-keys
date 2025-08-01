@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { logger } from './utils/logger';
+import { getStreamingMode } from './state-service';
 
 interface KeyPair {
   real: string;
@@ -8,36 +9,52 @@ interface KeyPair {
 }
 
 interface KeyConfig {
-  streamingMode: boolean;
   keys: Record<string, KeyPair>;
 }
 
-const configPath = path.join(process.cwd(), 'keys.json');
-
-let keyConfig: KeyConfig;
-
-try {
-  const rawConfig = fs.readFileSync(configPath, 'utf-8');
-  keyConfig = JSON.parse(rawConfig);
-  logger.info('Loaded keys.json configuration.');
-} catch (error) {
-  logger.error('Failed to load or parse keys.json:', error);
-  process.exit(1);
+interface FeatureConfig {
+  strictMode: boolean;
+  features: {
+    gitHook: {
+      enabled: boolean;
+      mode: string;
+    }
+  }
 }
 
-export const config = keyConfig;
+const keysConfigPath = path.join(process.cwd(), 'keys.json');
+const featureConfigPath = path.join(process.cwd(), 'securestream.config.json');
 
-export const toggleStreamingMode = (): boolean => {
-  config.streamingMode = !config.streamingMode;
-  fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
-  logger.info(`Streaming mode set to: ${config.streamingMode}`);
-  return config.streamingMode;
+const readJsonFile = <T>(filePath: string): T | null => {
+  try {
+    const rawConfig = fs.readFileSync(filePath, 'utf-8');
+    return JSON.parse(rawConfig);
+  } catch (error) {
+    logger.error(`❌ FATAL: Could not read or parse ${path.basename(filePath)}.`);
+    logger.error('    Please ensure the file exists and is valid JSON.');
+    process.exit(1);
+  }
+};
+
+const keyConfig = readJsonFile<KeyConfig>(keysConfigPath);
+export const featureConfig = readJsonFile<FeatureConfig>(featureConfigPath);
+
+export const config = {
+  ...keyConfig,
+  strictMode: featureConfig?.strictMode ?? false
 };
 
 export const getKey = (name: string): string | undefined => {
-  const keyPair = config.keys[name];
+  const keyPair = config.keys?.[name];
   if (!keyPair) {
     return undefined;
   }
-  return config.streamingMode ? keyPair.placeholder : keyPair.real;
+  
+  const isStreaming = getStreamingMode();
+
+  if (!isStreaming) {
+    logger.warn(`[DEBUG - REAL KEY] Providing real key for '${name}'. If an auth error occurs next in your app, this is the key that was used. 🕵️`);
+  }
+
+  return isStreaming ? keyPair.placeholder : keyPair.real;
 }; 

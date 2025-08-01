@@ -6,25 +6,17 @@ yarn-error.log*
 
 # Production builds
 dist/
-build/
+
+# Logs & Runtime Data
+logs
+*.log
+key-request-log.json
+.securestream.state.json
 
 # Environment variables
 .env
 .env.*
 !.env.example
-
-# Logs
-logs
-*.log
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory used by tools like istanbul
-coverage/
 
 # IDE
 .vscode/
@@ -35,12 +27,10 @@ coverage/
 
 # OS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
 # TypeScript
 *.tsbuildinfo 
+
+# Josh's shit
+joshme.md
