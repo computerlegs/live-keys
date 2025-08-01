@@ -26,17 +26,13 @@ What:
 2. Outputs from `live-keys` are designed to be informative, educational and reflect best practice by allowing people to expose environment secrets like .env files. Configure API fails to display either `404` or a friendlier `null` as you demonstrate full processes.
 3. This is essentially an agnostic, open source, cross compatible version of "secrets" that anyone can use.
 
-Why:
-1. To foster public building
-2. For streaming and workshops
+---
 
-Where:
-1. Install it locally, seperate to your normal codebase.
-
-Who:
-1. Made in Cursor by Josh Reinhardt (https://ezc.tech) and:
+Made in Cursor by Josh Reinhardt (https://ezc.tech) 
 
 *With thanks to `winston` and `husky`*
+
+---
 
 Winston Dev Tool Summary:
 - What: Simple and universal logging library with support for multiple transports for Node.js
@@ -45,6 +41,8 @@ Winston Dev Tool Summary:
 - Best contact: https://github.com/winstonjs/winston
 
 `live-keys` uses `winston` to provide a more verbose output on API failures. Logging from `winston` creates context with simple JavaScript time stamps and sliced 15 record files, for extra sight on API fails. API failures are typically not verbose, so having a little extra sight from chronology is helpful in an educational or presentation setting especially.
+
+---
 
 Husky Dev Tool Summary:
 - What: Modern native Git hooks tool - makes Git hooks easy and automates commit/push tasks
@@ -55,6 +53,10 @@ Husky Dev Tool Summary:
 `live-keys` uses `husky` to prevent developer users from accidentally committing the real secrets they put in their keys.json file inside `live-keys`. 
 
 ⚠️ Husky is recommended for developers thinking about iterating `live-keys`. It prevents committing the `keys.json` file. You are circumventing standard best practice procedures to use `live-keys` because humans and AI know to guard .env files, and to store them in `keys.json` is unusual. This demonstrates the fundamantals of environment secrets.
+
+---
+
+# So how does it look? Screenshots and code: hooray!
 
 ![commands-screenshot.png](assets/commands-screenshot.png)
 
