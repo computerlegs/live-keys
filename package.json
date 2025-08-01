@@ -5,7 +5,8 @@
   "main": "dist/server.js",
   "bin": {
     "check-keys": "./scripts/check-keys.js",
-    "status": "./scripts/status.js"
+    "status": "./scripts/status.js",
+    "key-commands": "./scripts/commands.js"
   },
   "scripts": {
     "dev": "nodemon src/server.ts",
@@ -15,7 +16,11 @@
     "setup": "node scripts/setup.js",
     "postinstall": "node scripts/setup.js",
     "check-keys": "node scripts/check-keys.js",
-    "status": "node scripts/status.js"
+    "status": "node scripts/status.js",
+    "stream:on": "node scripts/toggle.js on",
+    "stream:off": "node scripts/toggle.js off",
+    "stream:toggle": "node scripts/toggle.js",
+    "key-commands": "node scripts/commands.js"
   },
   "author": "Your Name",
   "license": "MIT",

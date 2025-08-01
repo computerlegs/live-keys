@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2023-10-27
+
+### Added
+- **Client-Side Helper Library:** A new `/code-base-files` directory was added, containing a self-contained JavaScript library (`live-keys.js`). This allows developers to programmatically interact with the server (e.g., `getLiveStatus()`, `getKey()`) directly from their own application code.
+- **Configuration Check API:** A new `GET /config-check` endpoint was added to provide the static key configuration report as JSON data, enabling the new client-side library.
+
+### Changed
+- **Formal API Documentation:** Created a dedicated `API.md` file to properly document all available endpoints.
+
+## [1.2.0] - 2023-10-27
+
+### Added
+- **Actionable Diagnostic Reporting:** The `status` command was significantly upgraded to display a rich, formatted table of the recent key request history. It now includes the server mode, the type of key served (`real` or `placeholder`), and contextual debugging tips directly in the output.
+
+### Changed
+- **Enriched Request Logging:** The request log (`key-request-log.json`) is now more powerful, with each entry capturing the server mode and key type at the moment of the request to provide a clearer audit trail.
+
 ## [1.1.1] - 2023-10-27
 
 ### Changed

@@ -3,15 +3,15 @@
   "keys": {
     "OPENAI_API_KEY": {
       "real": "sk-real-openai-key-goes-here",
-      "placeholder": "sk-placeholder-openai-key-for-stream"
+      "placeholder": "my-name-geoff"
     },
     "STRIPE_SECRET_KEY": {
       "real": "sk_test_real-stripe-key-goes-here",
-      "placeholder": "sk_test_placeholder-stripe-key-for-stream"
+      "placeholder": "geoff-my-name"
     },
     "DATABASE_URL": {
       "real": "postgresql://user:real_password@host:port/db",
-      "placeholder": "postgresql://user:placeholder_password@host:port/db"
+      "placeholder": "postgresql://geoffrey:password123@host:port/db"
     }
   }
 } 

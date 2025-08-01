@@ -53,10 +53,31 @@ npx husky add .husky/pre-commit "node scripts/pre-commit.js"
 ```bash
 npm run dev
 ```
+The server will start with a detailed banner confirming its status.
+
+## Controlling Streaming Mode
+
+You can control the server's mode from your terminal.
+
+-   **`npm run stream:on`**: Turns streaming mode ON.
+-   **`npm run stream:off`**: Turns streaming mode OFF.
+-   **`npm run stream:toggle`**: Toggles the current mode.
 
 ## Diagnostic Commands
--   `npm run status`: Shows the live status of the running server.
--   `npm run check-keys`: Validates your `keys.json` configuration.
+-   **`npm run status`** (or `npx status`): The primary command for checking the server. It connects to the live server and prints a detailed report of its current status, mode, and a rich history of the last 15 key requests.
+-   **`npm run check-keys`** (or `npx check-keys`): Validates your `keys.json` file on disk and reports which keys are established vs. still using template values.
+-   **`npm run key-commands`** (or `npx key-commands`): Displays a list of all available commands.
+
+## Advanced Usage
+
+### Programmatic Access (Client-Side Helper)
+For tighter integration, a client-side helper library is available in the `/code-base-files` directory. You can copy these files into your own project to get rich, in-terminal diagnostics and control the server directly from your application's code. See the `README.md` in that directory for full instructions.
+
+### API Documentation
+For detailed information on the server's endpoints, see the official `API.md` file in the project root.
+
+## API Endpoints
+-   `GET /health`: The raw health check endpoint used by the `status` command.
 
 ## Testing Your Setup
 

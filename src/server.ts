@@ -28,7 +28,12 @@ interface KeyPair { real: string; placeholder: string; }
 interface KeyConfig { keys: Record<string, KeyPair>; }
 interface AppState { streamingMode: boolean; }
 interface FeatureConfig { strictMode: boolean; }
-interface LogEntry { timestamp: string; keyName: string; }
+interface LogEntry { 
+    timestamp: string; 
+    keyName: string;
+    mode: 'Streaming' | 'Development';
+    keyType: 'real' | 'placeholder';
+}
 interface RequestLog { history: LogEntry[]; }
 
 
@@ -69,17 +74,25 @@ async function initialize() {
 const persistState = () => fs.writeFile(stateFilePath, JSON.stringify(state, null, 2));
 const persistLog = () => fs.writeFile(logFilePath, JSON.stringify(requestLog, null, 2));
 
-const addLogEntry = (keyName: string) => {
-    requestLog.history.unshift({ timestamp: new Date().toISOString(), keyName });
+const addLogEntry = (keyName: string, mode: 'Streaming' | 'Development', keyType: 'real' | 'placeholder') => {
+    requestLog.history.unshift({ timestamp: new Date().toISOString(), keyName, mode, keyType });
     requestLog.history = requestLog.history.slice(0, 15);
     persistLog();
 };
 
-const toggleStreamingMode = () => {
-    state.streamingMode = !state.streamingMode;
+const setStreamingMode = (newState?: boolean) => {
+    if (newState === undefined) {
+        state.streamingMode = !state.streamingMode;
+    } else {
+        state.streamingMode = newState;
+    }
     persistState();
-    logger.info(`Streaming mode set to: ${state.streamingMode}`);
-    return state.streamingMode;
+    const mode = state.streamingMode;
+    logger.info(`Streaming mode set to: ${mode}`);
+    if (!mode) {
+        logger.warn('❌❌❌ WARNING: STREAMING MODE IS OFF - REAL KEYS ARE LIVE! ❌❌❌');
+    }
+    return mode;
 };
 
 // --- Server ---
@@ -97,24 +110,49 @@ function startServer() {
         });
     });
 
-    app.post('/stream-mode/toggle', (_req, res) => {
-        const newMode = toggleStreamingMode();
-        return res.status(200).json({ streamingMode: newMode });
+    app.post('/stream-mode/toggle', (req, res) => {
+        const { mode } = req.body; // Expects 'on' or 'off'
+        let newState: boolean | undefined;
+
+        if (mode === 'on') newState = true;
+        if (mode === 'off') newState = false;
+        
+        const finalMode = setStreamingMode(newState);
+        return res.status(200).json({ streamingMode: finalMode });
     });
     
+    app.get('/config-check', (_req, res) => {
+        const keyNames = Object.keys(keyConfig.keys || {});
+        const total = keyNames.length;
+        let established = 0;
+        const report = keyNames.map(name => {
+            const keyData = keyConfig.keys[name];
+            const isEstablished = keyData && keyData.real && !keyData.real.includes('REPLACE_WITH');
+            if (isEstablished) established++;
+            return { name, isEstablished };
+        });
+
+        return res.status(200).json({ total, established, keys: report });
+    });
+
     app.get('/keys/:name', (req, res) => {
         const { name } = req.params;
-        addLogEntry(name);
         const keyPair = keyConfig.keys?.[name];
+        const isStreaming = state.streamingMode;
+        const mode = isStreaming ? 'Streaming' : 'Development';
     
         if (!keyPair) {
+            addLogEntry(name, mode, 'placeholder'); // Still log the attempt
             if (featureConfig.strictMode) {
                 return res.status(404).json({ error: `Key '${name}' not found.` });
             }
             return res.status(200).json({ key: name, value: null, message: `Key '${name}' not found.` });
         }
         
-        const value = state.streamingMode ? keyPair.placeholder : keyPair.real;
+        const keyType = isStreaming ? 'placeholder' : 'real';
+        addLogEntry(name, mode, keyType);
+
+        const value = isStreaming ? keyPair.placeholder : keyPair.real;
         return res.status(200).json({ key: name, value });
     });
 
