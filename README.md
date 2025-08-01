@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/badge/version-v1.2-blue)](https://github.com/computerlegs/live-keys/releases)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-`live-keys` is a lightweight Express-based tool that helps you build in public safely. It runs as a separate local server, acting as a simple proxy for your API keys, preventing them from being exposed during live streams, videos, or presentations.
+`live-keys` is an Express-based tool that helps you build in public safely. It runs as a separate local server, acting as a simple proxy for your API keys, preventing them from being exposed during live streams, videos, or presentations.
 
 ![commands-screenshot.png](assets/commands-screenshot.png)
 
@@ -39,7 +39,7 @@ const stripeKey = stripeData.value; // This is the actual key/placeholder
 
 ## About The Project
 
-You should use this tool **any time your screen, terminal, or browser's developer tools might be visible to others.** This includes live streams, recorded videos, pair programming sessions with external collaborators, or any situation where you are sharing your development environment publicly.
+You can use this tool **any time your screen, terminal, or browser's developer tools might be visible to others.** This includes live streams, recorded videos, pair programming sessions with external collaborators, or any situation where you are sharing your development environment publicly.
 
 ### Target Audience
 *   **Live Coding Streamers and YouTubers:** The primary audience, who can code with real APIs without fear of accidental exposure.
@@ -58,6 +58,65 @@ You should use this tool **any time your screen, terminal, or browser's develope
 -   **Request History Log**: A persistent log of the last 15 key requests for easy debugging.
 
 ---
+
+### How does it affect coding?
+
+*This is a critical point!*
+
+ **You do need to write code differently in your main application to use `live-keys`.**
+
+It represents a fundamental shift from a **synchronous, direct-access** pattern to an **asynchronous, request-based** pattern for handling your secrets.
+
+Don't use it for production development, use it for public development.
+
+Here is a  breakdown of the change:
+
+---
+
+### Before `live-keys`: Direct & Synchronous
+
+Your code assumes the secret is immediately available in the environment.
+
+*   **Logic:** "Get the variable named `OPENAI_API_KEY` from `process.env` right now."
+*   **Code:**
+    ```javascript
+    // The key is available instantly.
+    const apiKey = process.env.OPENAI_API_KEY; 
+
+    // You can use it immediately.
+    const openai = new OpenAI({ apiKey: apiKey }); 
+    ```
+
+---
+
+### After `live-keys`: Indirect & Asynchronous
+
+Your code must now *ask* another service (the `live-keys` server) for the secret and *wait* for a response.
+
+*   **Logic:** "Send a network request to the `live-keys` server for the key named `OPENAI_API_KEY`, and wait for it to reply with the value."
+*   **Code:**
+    ```javascript
+    // You must use async/await because it's a network request.
+    async function initializeApi() {
+      const liveKeysUrl = process.env.LIVE_KEYS_SERVER_URL;
+      const response = await fetch(`${liveKeysUrl}/keys/OPENAI_API_KEY`);
+      const data = await response.json();
+      const apiKey = data.value; // The value can now be used.
+
+      const openai = new OpenAI({ apiKey: apiKey });
+    }
+
+    // You have to call the async function to start your app.
+    initializeApi();
+    ```
+
+### Why This Change is Necessary and Powerful
+
+This change in code, while requiring an adjustment, is precisely what makes `live-keys` secure and effective:
+
+1.  **Decoupling:** Your main application is no longer directly coupled to the secret. It doesn't know the value, only how to ask for it.
+2.  **Centralized Control:** This allows the `live-keys` server to act as a central switch. When you run `npm run stream:on`, it changes the value that gets sent back to your app, without your app ever needing to know or change.
+3.  **No Leaks:** Because the real secret is never loaded into your main application's `process.env` when streaming, it's impossible for a stray `console.log` or debugger to accidentally expose it.
 
 ## Getting Started
 
