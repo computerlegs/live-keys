@@ -114,6 +114,23 @@ You can use this tool **any time your screen, terminal, or browser's developer t
 
 ---
 
+Of course. Here is a table outlining the 10 most important files in the `live-keys` codebase.
+
+| File Path | Why It's Important | Key Dependencies | Purpose & Key Functions | Educational Value |
+| :--- | :--- | :--- | :--- | :--- |
+| **`src/server.ts`** | The application's core. | `express`, `keys.json`, `.live-keys.state.json` | Runs the Express API server; serves keys based on streaming mode. | A stateful TypeScript API server. |
+| **`package.json`** | Defines the project. | All `scripts/*.js` | Manages dependencies and defines all user-facing `npm` commands. | The project's command center. |
+| **`keys.json`** | The user's secret vault. | `src/server.ts`, `scripts/status.js` | Stores the user's real and placeholder key pairs. | A simple data/config separation model. |
+| **`docs/how-to-use.md`** | The primary user guide. | N/A | Explains the concepts and how to integrate `live-keys` into another project. | Best-practice technical documentation. |
+| **`scripts/status.js`** | The main diagnostic tool. | `src/server.ts` | Acts as a client to fetch and display the live server's status and history. | A Node.js-based client for a local API. |
+| **`live-keys.config.json`** | Configures advanced features. | `src/server.ts`, `scripts/pre-commit.js` | Enables/disables features like `strictMode` and the git hook. | Feature-flagging and user configuration. |
+| **`scripts/setup.js`** | The first user interaction. | `*.template.json` | Runs on `npm install` to create the initial config files from templates. | A basic project scaffolding script. |
+| **`scripts/toggle.js`** | Controls the server state. | `src/server.ts` | Sends the API request to turn streaming mode on, off, or toggle it. | A state-changing command-line client. |
+| **`README.md`** | The project's front door. | `docs/*.md` | Provides a high-level overview and directs users to detailed documentation. | A standard open-source project landing page. |
+| **`scripts/pre-commit.js`** | The core security feature. | `live-keys.config.json` | Runs automatically before a `git commit` to prevent accidentally committing real keys. | An automated git hook for security scanning. |
+
+---
+
 ### How does it affect coding?
 
 *This is a critical point!*
