@@ -5,9 +5,11 @@
 [![Version](https://img.shields.io/badge/version-v1.2-blue)](https://github.com/computerlegs/live-keys/releases)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-💁‍♀️ `live-keys` is an Express-based tool that helps you build in public more safely. It runs as a separate local server, acting as a simple proxy for your API keys, preventing them from being exposed during live streams, videos, or presentations. This allows you to create a collection of API and environment keys for public building, store it one time with `live-keys` and then use it repeatedly. Rather than work with electrically charged codebases, flick the switch off and don't zap yourself. Outputs from `live-keys` are designed to be informative, educational and reflect best practice by allowing people to expose environment secrets like .env files.
+💁‍♀️ `live-keys` is an Express-based tool that helps you build in public more safely. It runs as a separate local server, acting as a simple proxy for your API keys, preventing them from being exposed during live streams, videos, or presentations. This allows you to create a collection of API and environment keys for public building, store it one time with `live-keys` and then use it repeatedly. 
 
-⚠️ You will need to refactor the way your application handles API calls, or use live-keys foundation to build demo apps. There is an explanation of how and where code should change in this file that will assist you or an AI agent to adopt `live-keys`.
+⚠️⚠️ You will need to refactor the way your application handles API calls, or use live-keys foundation to build demo apps. There is an explanation of how and where code should change in this file that will assist you or an AI agent to adopt `live-keys`. ⚠️⚠️
+
+⚡ To present your system safely: turn off the electricity! Flick the switch off and don't zap yourself. Keep environment secrets out of plain sight, from .env files to suprise terminal outputs. Outputs from `live-keys` are designed to be informative, educational and reflect best practice by allowing people to expose environment secrets like .env files. Configure API fails to display either `404` or a friendlier `null` as you demonstrate full processes.
 
 ✅ This is essentially an agnostic, open source, cross compatible version of "secrets" that anyone can use.
 
