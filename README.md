@@ -9,6 +9,32 @@
 
 ![commands-screenshot.png](assets/commands-screenshot.png)
 
+| Feature / Aspect | Traditional `.env` Approach | `live-keys` Approach |
+| :--- | :--- | :--- |
+| **`.env` File Content** | Contains the actual secret key.<br> `API_KEY="sk-real-xxxxxxxx"` | Contains the URL of the key server.<br>`LIVE_KEYS_SERVER_URL="http://localhost:3666"` |
+| **Secret Storage** | The real secret is stored in the `.env` file **within your main project's directory.** | The real secret is stored in a separate `keys.json` file, managed **only by the `live-keys` server.** |
+| **Application Code** | Synchronously reads the key directly from the environment.<br>`const key = process.env.API_KEY;` | Asynchronously fetches the key from the `live-keys` local server.<br>`const key = await getApiKey('API_KEY');` |
+| **Workflow for Streaming** | **Manual & Risky:**<br>1. Manually edit `.env` to replace the real key with a fake one.<br>2. Restart the application.<br>3. Remember to **never** show the `.env` file. | **Simple & Safe:**<br>1. Run a single command: `npm run stream:on`.<br>2. The application continues running without changes. |
+| **Risk of Exposure** | **High.** If you accidentally show the `.env` file, `console.log(process.env)`, or a debugger variable, the **real secret is exposed.** | **Low.** The most you can expose is the placeholder value or the local server URL. |
+| **Complexity** | **Very Simple.** This is the standard, built-in method for handling secrets in most frameworks. | **Adds a layer.** It requires running a second, separate server process alongside your main application. |
+
+Your application code uses that single URL as a base. It then appends the name of the secret it needs to the end of the URL.
+Here is a code example of how your application would fetch two different keys:
+
+```javascript
+const serverUrl = process.env.LIVE_KEYS_SERVER_URL;
+
+// Fetch the OpenAI key
+const openaiResponse = await fetch(`${serverUrl}/keys/OPENAI_API_KEY`);
+const openaiData = await openaiResponse.json();
+const openaiKey = openaiData.value; // This is the actual key/placeholder
+
+// Fetch the Stripe key
+const stripeResponse = await fetch(`${serverUrl}/keys/STRIPE_SECRET_KEY`);
+const stripeData = await stripeResponse.json();
+const stripeKey = stripeData.value; // This is the actual key/placeholder
+```
+
 ---
 
 ## About The Project
