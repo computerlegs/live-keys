@@ -2,10 +2,65 @@
 
 *Designed to make building in public easier*
 
+# Brand New Codebase, Ain't Got No Keys
+
+![car-no-keys.gif](assets/car-no-keys.gif)
+
+✅ Important! Install `live-keys` in a NEW FOLDER, as a NEW PROJECT. It is a seperate codebase to your other project. 
+
+Once you establish your `keys.json` file treat it like any other key. Safely, securely, and offline unless you know what you're doing. 
+
+❌ Super Duper Important Details, Don't Worry It's Okay!
+
+Did you read the note above? `live-keys` is a key in itself. It is a standalone, seperate server and application to your main codebase. To present your system safely: turn off the electricity! Flick the switch off and don't zap yourself. So, DO NOT INSTALL `live-keys` in your main codebase. Start a new project with a new folder! 
+
+This seperation is how your keys are obfuscated: a simple HTTP call, offline. 
+
 [![Version](https://img.shields.io/badge/version-v1.2-blue)](https://github.com/computerlegs/live-keys/releases)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-`live-keys` is an Express-based tool that helps you build in public safely. It runs as a separate local server, acting as a simple proxy for your API keys, preventing them from being exposed during live streams, videos, or presentations.
+💁‍♀️ `live-keys` is an Express-based tool that helps you build in public more safely and show more of your process.
+
+How:
+1. It runs as a separate local server, acting as a simple proxy for your API keys, preventing them from being exposed during live streams, videos, or presentations. 
+2. This allows you to create a collection of API and environment keys for public building, store it one time with `live-keys` and then use it repeatedly. 
+
+What:
+1. Keep environment secrets out of plain sight, from .env files to suprise terminal outputs. 
+2. Outputs from `live-keys` are designed to be informative, educational and reflect best practice by allowing people to expose environment secrets like .env files. Configure API fails to display either `404` or a friendlier `null` as you demonstrate full processes.
+3. This is essentially an agnostic, open source, cross compatible version of "secrets" that anyone can use.
+
+---
+
+Made in Cursor by Josh Reinhardt (https://ezc.tech) 
+
+*With thanks to `winston` and `husky`*
+
+---
+
+Winston Dev Tool Summary:
+- What: Simple and universal logging library with support for multiple transports for Node.js
+- Created by: Charlie Robbins (GitHub: indexzero)
+- Current maintainer: David Hyde
+- Best contact: https://github.com/winstonjs/winston
+
+`live-keys` uses `winston` to provide a more verbose output on API failures. Logging from `winston` creates context with simple JavaScript time stamps and sliced 15 record files, for extra sight on API fails. API failures are typically not verbose, so having a little extra sight from chronology is helpful in an educational or presentation setting especially.
+
+---
+
+Husky Dev Tool Summary:
+- What: Modern native Git hooks tool - makes Git hooks easy and automates commit/push tasks
+- Created by: Typicode (GitHub: typicode)
+- Maintainer: Typicode
+- Best contact: https://github.com/typicode/husky (GitHub issues) or typicode@gmail.com
+
+`live-keys` uses `husky` to prevent developer users from accidentally committing the real secrets they put in their keys.json file inside `live-keys`. 
+
+⚠️ Husky is recommended for developers thinking about iterating `live-keys`. It prevents committing the `keys.json` file. You are circumventing standard best practice procedures to use `live-keys` because humans and AI know to guard .env files, and to store them in `keys.json` is unusual. This demonstrates the fundamantals of environment secrets.
+
+---
+
+# So how does it look? Screenshots and code: hooray!
 
 ![commands-screenshot.png](assets/commands-screenshot.png)
 
@@ -174,15 +229,6 @@ You can control the server and perform checks using the following commands:
 -   **`npm run check-keys`** (or `npx check-keys`): Validates your `keys.json` file.
 -   **`npm run key-commands`** (or `npx key-commands`): Displays a list of all available commands.
 
-### Workflow Diagram
-```mermaid
-graph TD
-    A["Your App"] -- "1. Asks for 'API_KEY'" --> B["live-keys Server"];
-    B -- "2. Reads mode from 'keys.json'" --> C["keys.json"];
-    B -- "3. Returns value" --> A;
-    A -- "4. Uses value to call API" --> D["External Service"];
-```
-
 ### Advanced Usage
 
 #### Programmatic Access (Client-Side Helper)
@@ -259,5 +305,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 ## Contact
-Josh Reinhardt - *Your Contact Information*
+Josh Reinhardt - *https://ezc.tech | https://ezc.app | https://ezcourier.com.au | https://linkedin.com/in/ezcourier*
 Project Link: [https://github.com/computerlegs/live-keys](https://github.com/computerlegs/live-keys)
