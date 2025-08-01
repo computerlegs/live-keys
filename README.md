@@ -6,7 +6,7 @@
 
 `live-keys` is a lightweight Express-based tool that helps you build in public safely. It runs as a separate local server, acting as a simple proxy for your API keys. This allows you to follow your normal development workflow while obfuscating your real credentials from a `keys.json` file, preventing them from being exposed during live streams, videos, or presentations.
 
-![check-keys-screenshot.png](assets/check-keys-screenshot.png)
+![commands-screenshot.png](assets/commands-screenshot.png)
 
 ```mermaid
 graph TD
