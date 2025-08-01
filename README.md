@@ -10,14 +10,14 @@
 
 Once you establish your `keys.json` file treat it like any other key. Safely, securely, and offline unless you know what you're doing. 
 
+[![Version](https://img.shields.io/badge/version-v1.2-blue)](https://github.com/computerlegs/live-keys/releases)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 ❌ Super Duper Important Details, Don't Worry It's Okay!
 
 Did you read the note above? `live-keys` is a key in itself. It is a standalone, seperate server and application to your main codebase. To present your system safely: turn off the electricity! Flick the switch off and don't zap yourself. So, DO NOT INSTALL `live-keys` in your main codebase. Start a new project with a new folder! 
 
 This seperation is how your keys are obfuscated: a simple HTTP call, offline. 
-
-[![Version](https://img.shields.io/badge/version-v1.2-blue)](https://github.com/computerlegs/live-keys/releases)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 💁‍♀️ `live-keys` is an Express-based tool that helps you build in public more safely and show more of your process.
 
