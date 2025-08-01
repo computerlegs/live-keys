@@ -1,6 +1,6 @@
 {
   "name": "live-keys",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "A minimalist, localhost-only key server for building in public.",
   "main": "dist/server.js",
   "bin": {

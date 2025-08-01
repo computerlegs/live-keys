@@ -23,18 +23,18 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - **Improved Stability:** Fixed a critical TypeScript bug that caused the server to crash on startup.
-- **Enhanced Configuration:** Separated dynamic state (`.securestream.state.json`) from static configuration (`keys.json`), making the architecture more robust.
+- **Enhanced Configuration:** Separated dynamic state (`.live-keys.state.json`) from static configuration (`keys.json`), making the architecture more robust.
 - **Refined UX:** Changed the default port to `3666` to avoid common conflicts and added comments to template files to make them self-documenting.
 
 ## [1.1.0] - 2023-10-27
 
 ### Added
 - **Live Status Command (`status`):** A new command (`npm run status` or `npx status`) was added to connect to the live server and provide a real-time report of its status, mode, and recent key request history.
-- **Configurable Strict Mode:** A `strictMode` option was added to `securestream.config.json`. When enabled, the API will return a hard `404 Not Found` for missing keys, helping to catch typos during development.
+- **Configurable Strict Mode:** A `strictMode` option was added to `live-keys.config.json`. When enabled, the API will return a hard `404 Not Found` for missing keys, helping to catch typos during development.
 - **End-to-End Testing Guide:** The `README.md` was updated with a simple strategy and code examples for performing an end-to-end test of the entire workflow.
 
 ### Changed
-- **Separated State from Config:** The application was refactored to store dynamic state (like `streamingMode`) in a `.securestream.state.json` file. This makes `keys.json` a true static configuration file and improves architectural robustness.
+- **Separated State from Config:** The application was refactored to store dynamic state (like `streamingMode`) in a `.live-keys.state.json` file. This makes `keys.json` a true static configuration file and improves architectural robustness.
 - **Upgraded Key Status Report:** The `check-keys` command was upgraded to generate a comprehensive, formatted table-based report, showing key status and non-sensitive snippets for better readability.
 - **Rebranded Project:** The project was officially renamed to `live-keys` in `package.json` and all user-facing documentation for a consistent brand identity.
 - **Enhanced Diagnostic Logging:** The `[DEBUG - REAL KEY]` log was made more explicit about its purpose as a diagnostic breadcrumb for debugging authentication errors.
@@ -47,7 +47,7 @@ All notable changes to this project will be documented in this file.
 - **Enhanced Health Endpoint**: The `GET /health` endpoint now returns the recent key request history.
 - **Comprehensive Startup Banner**: The server now displays a detailed startup message outlining key files, commands, and server status for better discoverability.
 - **`check-keys` Command**: Added a diagnostic script (`npm run check-keys` or `npx check-keys`) to validate key configuration.
-- **Pre-Commit Git Hook**: Added an optional git hook to scan for real keys before committing, configured via `securestream.config.json`.
+- **Pre-Commit Git Hook**: Added an optional git hook to scan for real keys before committing, configured via `live-keys.config.json`.
 - **Feature Suggestions**: Captured more complex ideas in `FEATURE_SUGGESTIONS.md`.
 
 ### Changed

@@ -54,7 +54,7 @@ const printDivider = () => {
   console.log(`|-${nameDiv}-|-${statusDiv}-|-${realDiv}-|-${placeholderDiv}-|`);
 };
 
-console.log('\n--- 🕵️ SecureStream Key Status Report ---\n');
+console.log('\n--- 🕵️ live-keys Key Status Report ---\n');
 console.log(`📊 Found ${establishedKeysCount} of ${keyNames.length} established key(s).\n`);
 
 printRow('Key Name', 'Status', 'Real Snippet', 'Placeholder Snippet');

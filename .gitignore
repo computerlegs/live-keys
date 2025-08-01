@@ -11,7 +11,7 @@ dist/
 logs
 *.log
 key-request-log.json
-.securestream.state.json
+.live-keys.state.json
 
 # Environment variables
 .env

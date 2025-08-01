@@ -1,11 +1,22 @@
 #!/usr/bin/env node
 
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
+
+const keysConfigPath = path.join(process.cwd(), 'keys.json');
+let keysConfig = {};
+try {
+  const keysData = fs.readFileSync(keysConfigPath, 'utf-8');
+  keysConfig = JSON.parse(keysData);
+} catch (err) {
+  console.error(`⚠️ Could not load keys.json. Placeholders will not be shown.`);
+}
 
 const options = {
   hostname: 'localhost',
   port: 3666,
-  path: 'health',
+  path: '/health',
   method: 'GET',
   timeout: 2000,
 };
@@ -30,14 +41,15 @@ const req = http.request(options, res => {
 
     console.log('\n--- Recent Key Request History ---\n');
     if (status.keyRequestHistory && status.keyRequestHistory.length > 0) {
-      console.log('   Time       | Key Name               | Mode        | Served');
-      console.log('   ---------- | ---------------------- | ----------- | ----------------');
+      console.log('   Time       | Key Name               | Status      | Served           | Placeholder');
+      console.log('   ---------- | ---------------------- | ----------- | ---------------- | ----------------');
       status.keyRequestHistory.forEach(entry => {
         const time = new Date(entry.timestamp).toLocaleTimeString();
-        const keyName = entry.keyName.padEnd(22);
-        const mode = entry.mode.padEnd(11);
-        const served = entry.keyType === 'real' ? '🚨 REAL KEY' : '✅ Placeholder';
-        console.log(`   ${time} | ${keyName} | ${mode} | ${served}`);
+        const keyName = (entry.keyName || 'N/A').padEnd(22);
+        const mode = (entry.mode || 'Legacy').padEnd(11);
+        const served = (entry.keyType === 'real' ? '🚨 REAL KEY' : '✅ Placeholder').padEnd(16);
+        const placeholder = keysConfig.keys?.[entry.keyName]?.placeholder || 'N/A';
+        console.log(`   ${time} | ${keyName} | ${mode} | ${served} | ${placeholder}`);
       });
 
       console.log('\n   Debugging Tips:');

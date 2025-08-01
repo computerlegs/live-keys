@@ -1,17 +1,13 @@
 {
-  "streamingMode": false,
+  "_comment": "This is the main configuration for your keys. Rename this file to keys.json and fill in your values.",
   "keys": {
-    "OPENAI_API_KEY": {
-      "real": "sk-real-openai-key-goes-here",
-      "placeholder": "my-name-geoff"
+    "REPLACE_WITH_YOUR_KEY_NAME_1": {
+      "real": "REPLACE_WITH_YOUR_REAL_API_KEY_1",
+      "placeholder": "REPLACE_WITH_YOUR_PLACEHOLDER_VALUE_1"
     },
-    "STRIPE_SECRET_KEY": {
-      "real": "sk_test_real-stripe-key-goes-here",
-      "placeholder": "geoff-my-name"
-    },
-    "DATABASE_URL": {
-      "real": "postgresql://user:real_password@host:port/db",
-      "placeholder": "postgresql://geoffrey:password123@host:port/db"
+    "REPLACE_WITH_YOUR_KEY_NAME_2": {
+      "real": "REPLACE_WITH_YOUR_REAL_API_KEY_2",
+      "placeholder": "REPLACE_WITH_YOUR_PLACEHOLDER_VALUE_2"
     }
   }
 } 

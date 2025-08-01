@@ -1,8 +1,12 @@
-# "live-keys" by Josh Reinhardt v1.1
+# live-keys
 
 *Designed to make building in public easier*
+*Josh Reinhardt*
+*v1.2*
 
 `live-keys` is a lightweight Express-based tool that helps you build in public safely. It runs as a separate local server, acting as a simple proxy for your API keys. This allows you to follow your normal development workflow while obfuscating your real credentials from a `keys.json` file, preventing them from being exposed during live streams, videos, or presentations.
+
+![check-keys-screenshot.png](assets/check-keys-screenshot.png)
 
 ```mermaid
 graph TD
@@ -22,7 +26,14 @@ You should use this tool **any time your screen, terminal, or browser's develope
 *   **Educators and Tutorial Creators:** Teachers demonstrating authentic, end-to-end development workflows.
 
 ---
+
+## Prerequisites
+- **Node.js**: v18.0.0 or higher.
+
 ## Core Features
+
+![check-keys-screenshot.png](assets/check-keys-screenshot.png)
+
 -   **Local Key Server**: A simple Express server to fetch your keys.
 -   **Streaming Mode Toggle**: Instantly switch between serving real keys (dev mode) and placeholder keys (stream mode).
 -   **Configurable Strict Mode**: Choose whether the server returns a hard `404 Not Found` error or a friendly `null` value for missing keys, preventing silent failures during development.
@@ -35,11 +46,15 @@ You should use this tool **any time your screen, terminal, or browser's develope
 ```bash
 npm install
 ```
-This command installs dependencies and creates `keys.json` and `securestream.config.json` files from templates.
+This command installs dependencies and creates `keys.json` and `live-keys.config.json` files from templates.
 
 ### 2. Configure Your Keys & Features
 -   **`keys.json`**: Add your real and placeholder API keys.
--   **`securestream.config.json`**: Enable or disable features like `strictMode` and the `gitHook`.
+-   **`live-keys.config.json`**: Configure the server's features.
+    -   `strictMode` (boolean): If `true`, requests for missing keys will return a `404 Not Found` error. If `false`, it returns a `200 OK` with a `null` value. Defaults to `false`.
+    -   `gitHook` (object): Configures the pre-commit hook.
+        -   `enabled` (boolean): If `true`, the hook will run. Defaults to `false`.
+        -   `mode` (string): Can be set to `'warn'` (logs a warning) or `'block'` (prevents the commit). Defaults to `'warn'`.
 
 ### 3. Set Up the Git Hook (Optional, but Recommended)
 We recommend using `husky` to manage the git hooks reliably.
@@ -77,7 +92,10 @@ For tighter integration, a client-side helper library is available in the `/code
 For detailed information on the server's endpoints, see the official `API.md` file in the project root.
 
 ## API Endpoints
+-   `GET /keys/:name`: Fetches the value of a specific key.
 -   `GET /health`: The raw health check endpoint used by the `status` command.
+-   `POST /stream-mode/toggle`: Toggles the streaming mode. Accepts a body with `{ "mode": "on" }` or `{ "mode": "off" }`.
+-   `GET /config-check`: Validates the `keys.json` file.
 
 ## Testing Your Setup
 
@@ -109,3 +127,7 @@ async function runTest() {
 runTest();
 ```
 Run `node test-app/fake-api.js` and `npm run dev` in separate terminals. Then run `node test-app/run-test.js`. Toggle streaming mode on and off to see the test succeed and fail.
+
+---
+## Contributing
+Open to contribution or collaboration, also, feel free to fork or clone this repo.

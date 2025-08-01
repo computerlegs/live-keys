@@ -18,9 +18,9 @@ const logger = winston.createLogger({
 
 // --- File Paths ---
 const keysConfigPath = path.join(process.cwd(), 'keys.json');
-const stateFilePath = path.join(process.cwd(), '.securestream.state.json');
+const stateFilePath = path.join(process.cwd(), '.live-keys.state.json');
 const logFilePath = path.join(process.cwd(), 'key-request-log.json');
-const featureConfigPath = path.join(process.cwd(), 'securestream.config.json');
+const featureConfigPath = path.join(process.cwd(), 'live-keys.config.json');
 
 
 // --- Interfaces ---
@@ -28,8 +28,8 @@ interface KeyPair { real: string; placeholder: string; }
 interface KeyConfig { keys: Record<string, KeyPair>; }
 interface AppState { streamingMode: boolean; }
 interface FeatureConfig { strictMode: boolean; }
-interface LogEntry { 
-    timestamp: string; 
+interface LogEntry {
+    timestamp: string;
     keyName: string;
     mode: 'Streaming' | 'Development';
     keyType: 'real' | 'placeholder';
@@ -116,11 +116,11 @@ function startServer() {
 
         if (mode === 'on') newState = true;
         if (mode === 'off') newState = false;
-        
+
         const finalMode = setStreamingMode(newState);
         return res.status(200).json({ streamingMode: finalMode });
     });
-    
+
     app.get('/config-check', (_req, res) => {
         const keyNames = Object.keys(keyConfig.keys || {});
         const total = keyNames.length;
@@ -140,7 +140,7 @@ function startServer() {
         const keyPair = keyConfig.keys?.[name];
         const isStreaming = state.streamingMode;
         const mode = isStreaming ? 'Streaming' : 'Development';
-    
+
         if (!keyPair) {
             addLogEntry(name, mode, 'placeholder'); // Still log the attempt
             if (featureConfig.strictMode) {
@@ -148,7 +148,7 @@ function startServer() {
             }
             return res.status(200).json({ key: name, value: null, message: `Key '${name}' not found.` });
         }
-        
+
         const keyType = isStreaming ? 'placeholder' : 'real';
         addLogEntry(name, mode, keyType);
 
@@ -160,7 +160,7 @@ function startServer() {
     app.listen(PORT, () => {
         const totalKeys = Object.keys(keyConfig.keys).length;
         const establishedKeys = Object.values(keyConfig.keys).filter(k => k && k.real && !k.real.includes('REPLACE_WITH')).length;
-        logger.info(`🚀 live-keys v1.1 is running!`);
+        logger.info(`🚀 live-keys v1.2 is running!`);
         logger.info(`    • Server running at: http://localhost:${PORT}`);
         logger.info(`    • Streaming Mode:    ${state.streamingMode ? 'STREAMING' : 'Development'}`);
         logger.info(`    • Established Keys:  ${establishedKeys} of ${totalKeys}`);

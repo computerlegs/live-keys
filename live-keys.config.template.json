@@ -1,0 +1,10 @@
+{
+  "_comment": "This file is for configuring advanced features of live-keys.",
+  "strictMode": false,
+  "features": {
+    "gitHook": {
+      "enabled": false,
+      "mode": "warn" 
+    }
+  }
+} 
