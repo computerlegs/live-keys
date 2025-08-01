@@ -2,6 +2,10 @@
 
 *Designed to make building in public easier*
 
+# Brand New Codebase, Ain't Got No Keys
+
+![commands-screenshot.png](assets/car-keys.gif)
+
 ✅ Important! Install `live-keys` in a NEW FOLDER, as a NEW PROJECT. It is a seperate codebase to your other project. 
 
 Once you establish your `keys.json` file treat it like any other key. Safely, securely, and offline unless you know what you're doing. 
