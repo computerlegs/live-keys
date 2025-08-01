@@ -2,13 +2,15 @@
 
 *Designed to make building in public easier*
 
-⚠️✅ Install `live-keys` in a NEW FOLDER, as a NEW PROJECT. It is a seperate code-base to your project. 
+✅ Important! Install `live-keys` in a NEW FOLDER, as a NEW PROJECT. It is a seperate codebase to your other project. 
 
 Once you establish your `keys.json` file treat it like any other key. Safely, securely, and offline unless you know what you're doing. 
 
-❌ Did you read the note above? DO NOT INSTALL `live-keys` in your main codebase. Start a new project with a new folder! This seperation is how your keys are obfuscated: a simple HTTP call, offline.
+❌ Super Duper Important Details, Don't Worry It's Okay!
 
-This is because `live-keys` is a key in itself. It is a standalone, seperate server and application to your main codebase. To present your system safely: turn off the electricity! Flick the switch off and don't zap yourself. 
+Did you read the note above? `live-keys` is a key in itself. It is a standalone, seperate server and application to your main codebase. To present your system safely: turn off the electricity! Flick the switch off and don't zap yourself. So, DO NOT INSTALL `live-keys` in your main codebase. Start a new project with a new folder! 
+
+This seperation is how your keys are obfuscated: a simple HTTP call, offline. 
 
 [![Version](https://img.shields.io/badge/version-v1.2-blue)](https://github.com/computerlegs/live-keys/releases)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
