@@ -174,15 +174,6 @@ You can control the server and perform checks using the following commands:
 -   **`npm run check-keys`** (or `npx check-keys`): Validates your `keys.json` file.
 -   **`npm run key-commands`** (or `npx key-commands`): Displays a list of all available commands.
 
-### Workflow Diagram
-```mermaid
-graph TD
-    A["Your App"] -- "1. Asks for 'API_KEY'" --> B["live-keys Server"];
-    B -- "2. Reads mode from 'keys.json'" --> C["keys.json"];
-    B -- "3. Returns value" --> A;
-    A -- "4. Uses value to call API" --> D["External Service"];
-```
-
 ### Advanced Usage
 
 #### Programmatic Access (Client-Side Helper)
