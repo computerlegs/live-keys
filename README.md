@@ -107,9 +107,9 @@ For tighter integration, a client-side helper library is available in the `/code
 For detailed information on the server's endpoints, see the official `API.md` file in the project root.
 
 #### API Endpoints
--   `GET /keys/:name`: Fetches the value of a specific key.
--   `GET /health`: The raw health check endpoint used by the `status` command.
--   `POST /stream-mode/toggle`: Toggles the streaming mode.
+-   `GET /keys/:name`: Fetches a key. Returns `{ "key": "...", "value": "..." }` on success.
+-   `GET /health`: Raw health check endpoint. Returns server status, mode, and request history.
+-   `POST /stream-mode/toggle`: Toggles streaming mode. Accepts an optional body (`{ "mode": "on" }` or `{ "mode": "off" }`) to set a specific state.
 -   `GET /config-check`: Validates the `keys.json` file.
 
 ### Testing Your Setup
@@ -144,8 +144,29 @@ runTest();
 Run `node test-app/fake-api.js` and `npm run dev` in separate terminals. Then run `node test-app/run-test.js`. Toggle streaming mode on and off to see the test succeed and fail.
 
 ---
+## Deployment
+For production environments, it is recommended to build the project and run the compiled JavaScript output.
+
+1.  **Build the project:**
+    ```bash
+    npm run build
+    ```
+    This command uses `tsc` to compile the TypeScript files from `src/` into the `dist/` directory.
+
+2.  **Run the production server:**
+    ```bash
+    npm start
+    ```
+    This command runs the compiled `dist/server.js` file directly with Node.js.
+
+---
 ## Contributing
 Open to contribution or collaboration, also, feel free to fork or clone this repo.
+
+If you wish to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome. Before submitting a pull request, please ensure your code adheres to the existing style by running:
+```bash
+npm run lint
+```
 
 ---
 ## License
