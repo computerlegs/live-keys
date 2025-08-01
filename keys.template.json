@@ -1,5 +1,5 @@
 {
-  "streamingMode": false,
+  "_comment": "This is the main configuration for your keys. Rename this file to keys.json and fill in your values.",
   "keys": {
     "REPLACE_WITH_YOUR_KEY_NAME_1": {
       "real": "REPLACE_WITH_YOUR_REAL_API_KEY_1",

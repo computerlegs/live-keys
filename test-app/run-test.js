@@ -2,7 +2,7 @@
 async function runTest() {
   console.log('--- Running Test ---');
   // 1. Fetch key from live-keys server
-  const liveKeysResponse = await fetch('http://localhost:3001/keys/OPENAI_API_KEY');
+  const liveKeysResponse = await fetch('http://localhost:3666/keys/OPENAI_API_KEY');
   const { value: apiKey } = await liveKeysResponse.json();
   console.log(`Received key from live-keys: ${apiKey ? `"${apiKey.substring(0, 15)}..."` : 'null'}`);
 

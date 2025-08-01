@@ -80,7 +80,7 @@ http.createServer((req, res) => {
 **2. `run-test.js` (A script that simulates your app)**
 ```javascript
 async function runTest() {
-  const res = await fetch('http://localhost:3001/keys/OPENAI_API_KEY');
+  const res = await fetch('http://localhost:3666/keys/OPENAI_API_KEY');
   const { value: apiKey } = await res.json();
   const apiRes = await fetch('http://localhost:4001', { headers: { 'Authorization': `Bearer ${apiKey}` } });
   console.log(`Fake API responded with: ${await apiRes.text()}`);

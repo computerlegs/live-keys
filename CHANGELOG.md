@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2023-10-27
+
+### Changed
+- **Improved Stability:** Fixed a critical TypeScript bug that caused the server to crash on startup.
+- **Enhanced Configuration:** Separated dynamic state (`.securestream.state.json`) from static configuration (`keys.json`), making the architecture more robust.
+- **Refined UX:** Changed the default port to `3666` to avoid common conflicts and added comments to template files to make them self-documenting.
+
+## [1.1.0] - 2023-10-27
+
+### Added
+- **Live Status Command (`status`):** A new command (`npm run status` or `npx status`) was added to connect to the live server and provide a real-time report of its status, mode, and recent key request history.
+- **Configurable Strict Mode:** A `strictMode` option was added to `securestream.config.json`. When enabled, the API will return a hard `404 Not Found` for missing keys, helping to catch typos during development.
+- **End-to-End Testing Guide:** The `README.md` was updated with a simple strategy and code examples for performing an end-to-end test of the entire workflow.
+
+### Changed
+- **Separated State from Config:** The application was refactored to store dynamic state (like `streamingMode`) in a `.securestream.state.json` file. This makes `keys.json` a true static configuration file and improves architectural robustness.
+- **Upgraded Key Status Report:** The `check-keys` command was upgraded to generate a comprehensive, formatted table-based report, showing key status and non-sensitive snippets for better readability.
+- **Rebranded Project:** The project was officially renamed to `live-keys` in `package.json` and all user-facing documentation for a consistent brand identity.
+- **Enhanced Diagnostic Logging:** The `[DEBUG - REAL KEY]` log was made more explicit about its purpose as a diagnostic breadcrumb for debugging authentication errors.
+- **Improved `README.md`:** The documentation was updated with a `husky` troubleshooting guide and polished to reflect all new features and the project's refined identity.
+
 ## [1.0.0] - 2023-10-27
 
 ### Added
