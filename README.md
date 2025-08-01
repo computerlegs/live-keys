@@ -5,7 +5,11 @@
 [![Version](https://img.shields.io/badge/version-v1.2-blue)](https://github.com/computerlegs/live-keys/releases)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-`live-keys` is an Express-based tool that helps you build in public safely. It runs as a separate local server, acting as a simple proxy for your API keys, preventing them from being exposed during live streams, videos, or presentations.
+`live-keys` is an Express-based tool that helps you build in public more safely. It runs as a separate local server, acting as a simple proxy for your API keys, preventing them from being exposed during live streams, videos, or presentations.
+
+⚠️ You will need to refactor the way your application handles API calls, or use live-keys foundation to build demo apps.
+
+✅ This is essentially an agnostic, open source, cross compatible version of "secrets" that anyone can use.
 
 ![commands-screenshot.png](assets/commands-screenshot.png)
 
