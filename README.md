@@ -4,7 +4,7 @@
 
 # Brand New Codebase, Ain't Got No Keys
 
-![commands-screenshot.png](assets/car-keys.gif)
+![car-keys.gif](assets/car-keys.gif)
 
 ✅ Important! Install `live-keys` in a NEW FOLDER, as a NEW PROJECT. It is a seperate codebase to your other project. 
 
